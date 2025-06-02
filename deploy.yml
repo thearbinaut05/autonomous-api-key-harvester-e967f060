@@ -1,0 +1,30 @@
+# Deployment Configuration for api-key-harvester
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-key-harvester
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-key-harvester
+  template:
+    metadata:
+      labels:
+        app: api-key-harvester
+    spec:
+      containers:
+      - name: api-key-harvester
+        image: api-key-harvester:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
